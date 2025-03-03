@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey, You're Awesome!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f7f7;
+            margin: 0;
+            padding: 0;
+            transition: background-color 1s ease;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .message-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .message-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .button {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .button:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.05);
+        }
+        
+        .buttons {
+            margin: 30px 0;
+        }
+        
+        .rainbow {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .rainbow-segment {
+            width: 40px;
+            height: 100px;
+            border-radius: 20px 20px 0 0;
+            margin: 0 5px;
+            transform-origin: bottom;
+            transition: transform 0.5s ease;
+        }
+        
+        .rainbow-segment:hover {
+            transform: scaleY(1.2);
+        }
+        
+        .compliments {
+            display: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin: 20px 0;
+            animation: bounce 0.5s;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .sun {
+            width: 100px;
+            height: 100px;
+            background-color: #ffd166;
+            border-radius: 50%;
+            margin: 20px auto;
+            box-shadow: 0 0 20px #ffd166;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .sun:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+        
+        .quotes-container {
+            margin: 30px 0;
+        }
+        
+        .animated-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .animated-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .heart {
+            font-size: 3rem;
+            color: #ff6b6b;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .mood-tracker {
+            margin: 30px 0;
+        }
+        
+        .mood-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .mood-option {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .mood-option:hover {
+            transform: scale(1.3);
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .cat-container {
+            margin: 30px 0;
+            height: 200px;
+            position: relative;
+        }
+        
+        .cat {
+            position: absolute;
+            width: 80px;
+            height: 70px;
+            background-color: #666;
+            border-radius: 40px 40px 40px 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: move 4s infinite alternate;
+            z-index: 1;
+        }
+        
+        @keyframes move {
+            0% { left: 30%; }
+            100% { left: 70%; }
+        }
+        
+        .cat:before, .cat:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #666;
+            top: -15px;
+        }
+        
+        .cat:before {
+            left: 5px;
+            transform: rotate(-30deg);
+        }
+        
+        .cat:after {
+            right: 5px;
+            transform: rotate(30deg);
+        }
+        
+        .cat-face {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background-color: #999;
+            border-radius: 30px 30px 15px 15px;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        
+        .cat-eye {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 8px;
+            z-index: 3;
+        }
+        
+        .cat-eye.left {
+            left: 12px;
+        }
+        
+        .cat-eye.right {
+            right: 12px;
+        }
+        
+        .cat-nose {
+            position: absolute;
+            width: 8px;
+            height: 4px;
+            background-color: #ff9999;
+            border-radius: 4px;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+        
+        .yarn-ball {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f94144;
+            border-radius: 50%;
+            bottom: 20px;
+            left: 70%;
+            z-index: 1;
+            animation: yarn 4s infinite alternate;
+        }
+        
+        @keyframes yarn {
+            0% { left: 70%; }
+            100% { left: 30%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey There, Sunshine! ☀️</h1>
+        
+        <div class="message-card">
+            <p class="message">Whatever you're going through right now, remember that you're stronger than you think. This moment is just that—a moment. It will pass, and better days are ahead.</p>
+        </div>
+        
+        <div class="sun" onclick="changeBackground()"></div>
+        
+        <div class="rainbow">
+            <div class="rainbow-segment" style="background-color: #ff595e;"></div>
+            <div class="rainbow-segment" style="background-color: #ffca3a;"></div>
+            <div class="rainbow-segment" style="background-color: #8ac926;"></div>
+            <div class="rainbow-segment" style="background-color: #1982c4;"></div>
+            <div class="rainbow-segment" style="background-color: #6a4c93;"></div>
+        </div>
+        
+        <div class="buttons">
+            <button class="button" onclick="showCompliment()">Give Me A Compliment</button>
+            <button class="button" onclick="showQuote()">Show Me An Inspiring Quote</button>
+            <button class="button" onclick="playSound()">Hear A Cheerful Sound</button>
+        </div>
+        
+        <div class="compliments" id="compliment-box"></div>
+        
+        <div class="quotes-container">
+            <p class="message animated-text" id="quote"></p>
+        </div>
+        
+        <div class="cat-container">
+            <div class="cat">
+                <div class="cat-face">
+                    <div class="cat-eye left"></div>
+                    <div class="cat-eye right"></div>
+                    <div class="cat-nose"></div>
+                </div>
+            </div>
+            <div class="yarn-ball"></div>
+        </div>
+        
+        <div class="mood-tracker">
+            <h3>How are you feeling today?</h3>
+            <div class="mood-options">
+                <div class="mood-option" onclick="trackedMood('😊')">😊</div>
+                <div class="mood-option" onclick="trackedMood('😔')">😔</div>
+                <div class="mood-option" onclick="trackedMood('😤')">😤</div>
+                <div class="mood-option" onclick="trackedMood('🤔')">🤔</div>
+                <div class="mood-option" onclick="trackedMood('😴')">😴</div>
+            </div>
+            <p id="mood-response" class="message" style="margin-top: 15px;"></p>
+        </div>
+        
+        <div class="message-card">
+            <p class="message">Remember that <span class="heart">♥</span> is all around you. People care about you more than you know.</p>
+        </div>
+        
+        <p class="footer">Sending you good vibes and virtual hugs! This page was made just for you.</p>
+    </div>
+    
+    <script>
+        // Compliments array
+        const compliments = [
+            "You are absolutely incredible!",
+            "Your strength is inspiring!",
+            "You make the world a better place!",
+            "You've got this! I believe in you!",
+            "Your resilience is remarkable!",
+            "You are worthy of all good things!",
+            "You are enough, just as you are!",
+            "Your presence brightens everyone's day!",
+            "You are capable of amazing things!",
+            "Your kindness doesn't go unnoticed!"
+        ];
+        
+        // Quotes array
+        const quotes = [
+            "The darkest hour has only sixty minutes. — Morris Mandel",
+            "Even the darkest night will end and the sun will rise. — Victor Hugo",
+            "You are allowed to be both a masterpiece and a work in progress simultaneously. — Sophia Bush",
+            "In the middle of difficulty lies opportunity. — Albert Einstein",
+            "This too shall pass. — Persian Proverb",
+            "Tough times never last, but tough people do. — Robert H. Schuller",
+            "The best way to cheer yourself up is to try to cheer somebody else up. — Mark Twain",
+            "After every storm, there is a rainbow. — Shannon L. Alder",
+            "Believe you can and you're halfway there. — Theodore Roosevelt",
+            "You are not alone in this. — Unknown"
+        ];
+        
+        // Mood responses
+        const moodResponses = {
+            "😊": "That's wonderful! Keep that positive energy flowing!",
+            "😔": "It's okay to feel down sometimes. Remember that every cloud has a silver lining.",
+            "😤": "Take a deep breath. Your feelings are valid, but try not to let them consume you.",
+            "🤔": "Contemplative mood? Sometimes the best solutions come when we least expect them.",
+            "😴": "Rest is important! Your body and mind need time to recharge."
+        };
+        
+        // Background colors
+        const bgColors = [
+            "#f9f7f7", "#f8edeb", "#fae1dd", "#d8e2dc", "#ece4db", 
+            "#e8e8e4", "#f1faee", "#e9ecef", "#ffcfd2", "#eff7f6"
+        ];
+        
+        function showCompliment() {
+            const compliment = compliments[Math.floor(Math.random() * compliments.length)];
+            const complimentBox = document.getElementById("compliment-box");
+            complimentBox.textContent = compliment;
+            complimentBox.style.display = "block";
+            
+            // Add animation by removing and re-adding class
+            complimentBox.classList.remove("bounce");
+            void complimentBox.offsetWidth; // Trigger reflow
+            complimentBox.classList.add("bounce");
+            
+            // Play a cheerful sound when compliment appears
+            const audio = new Audio("data:audio/wav;base64,UklGRnQGAABXQVZFZm10IBAAAAABAAEARKwAAESsAAABAAgAZGF0YU8GAACAgICAgICAgICAgICAgICAgICAgICBgYGBgoGCgoKCg4KDgoOCg4ODgoOCg4KDgoKCgoKBgYGBgICAgH9/f35+fn5+fn5+fn5/f39/gICAgICBgYGBgYGCgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+fn5/f39/gICAgYGBgYGCgoKCgIGBgYCBgYGAgYCBgIGAgYCBgIGAgICAgIB/gH+Af4B/f39/f39/f39/f39/gH+Af4CAgICAgIGAgYCBgIGAgYCBgIGAgYCBgICAgICAgH+Af4B/gH9/f39/f39/f39/f39/f4B/gH+AgICAgICBgIGAgYCBgIGAgYCBgIGAgYCAgICAgIB/gH+Af4B/gH9/f39/f39/f3+AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIB/gH+Af4B/gH+Af4CAgICAgICAgICAgICAgICAgICAgICAgIB/gH+Af4B/gH+AgICAgICAgIGAgYCBgICAgH+Af35/fn9+f39/gH+AgICBgYGBgoGCgYKBgYGBgICAgH9/f35+fn5+fn5+fn9/f3+AgICAgIGAgYCBgIGAgYCAgICAgH9/f39/f3+Af4B/gH+AgICAgICAgICAgH+Af4B/gH9/f39/f3+Af4B/gH+AgICAgICAgICAgH+Af4B/gH9/f39/f3+Af4B/gH+AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBgYGBgYGCgoKCgoKCgoKCgoGBgYGBgYGAgICAgICAfn9+f35+fn5+fn5/f39/gICAgYGBgYGCgoKCgoKDg4ODg4ODgoKCgoKCgYGBgYGAgICAgH9/f39+fn5+fn5+f39/f3+AgICAgICBgYGBgYGCgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn9/f39/gICAgICBgYGBgYGCgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f35+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGCgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgH9/f39+fn5+fn5+fn5+f39/f4CAgICAgYGBgYGBgoKCgoKCgoKCgoKCgoKBgYGBgYGAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==");
+            audio.play();
+        }
+        
+        function showQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            const quoteElement = document.getElementById("quote");
+            quoteElement.textContent = quote;
+            quoteElement.classList.remove("visible");
+            
+            // Trigger animation after a short delay
+            setTimeout(() => {
+                quoteElement.classList.add("visible");
+            }, 100);
+        }
+        
+        function changeBackground() {
+            const randomColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+        
+        function trackedMood(mood) {
+            const response = moodResponses[mood] || "Thanks for sharing how you feel!";
+            document.getElementById("mood-response").textContent = response;
+        }
+        
+        function playSound() {
+            // Create a simple cheerful sound using the Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create an oscillator
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine';
+            
+            // Create a gain node for volume control
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.3;
+            
+            // Connect the oscillator to the gain node, and the gain node to the destination
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Schedule some cheerful notes
+            const now = audioContext.currentTime;
+            oscillator.frequency.setValueAtTime(523.25, now); // C5
+            oscillator.frequency.setValueAtTime(587.33, now + 0.2); // D5
+            oscillator.frequency.setValueAtTime(659.25, now + 0.4); // E5
+            oscillator.frequency.setValueAtTime(698.46, now + 0.6); // F5
+            oscillator.frequency.setValueAtTime(783.99, now + 0.8); // G5
+            
+            // Add envelope to make it sound nicer
+            gainNode.gain.setValueAtTime(0, now);
+            gainNode.gain.linearRampToValueAtTime(0.3, now + 0.1);
+            gainNode.gain.linearRampToValueAtTime(0, now + 1.2);
+            
+            // Start and stop the oscillator
+            oscillator.start(now);
+            oscillator.stop(now + 1.2);
+        }
+        
+        // Start with animation for the first elements
+        window.onload = function() {
+            // Show one quote immediately when page loads
+            showQuote();
+            
+            // Animate the rainbow
+            const rainbowSegments = document.querySelectorAll('.rainbow-segment');
+            rainbowSegments.forEach((segment, index) => {
+                setTimeout(() => {
+                    segment.style.transform = 'scaleY(1.1)';
+                    setTimeout(() => {
+                        segment.style.transform = 'scaleY(1)';
+                    }, 300);
+                }, index * 200);
+            });
+        }
+    </script>
+</body>
+</html>
